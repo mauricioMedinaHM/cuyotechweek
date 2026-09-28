@@ -39,12 +39,11 @@ function Nombres({
   clase: string;
   cuadro: number;
 }) {
-  const cortes = items.length - 1;
   return (
     <p className={`nombres ${clase}`}>
       {items.map((texto, i) => (
         <span key={texto} className="entra" style={retraso(`${desde + i * 70}ms`)}>
-          {i > 0 && <Corte paso={i - 1} total={cortes} cuadro={cuadro} />}
+          <Corte paso={i} total={items.length} cuadro={cuadro} />
           {texto}
         </span>
       ))}
