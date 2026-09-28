@@ -1,0 +1,19 @@
+MEDIA KIT · CUYO TECH WEEK
+Lo vigente de la marca al 25/9/2026. La guía es la versión viva: https://app.pencilbox.site/p/cuyo-tech-week
+
+QUÉ HAY
+· logotipo/ — 9 archivos: el principal es cuyo-tech-week-logotipo.svg, el resto son sus versiones.
+· color/colores.csv — 3 colores con HEX, RGB y CMYK; Pantone, RAL, pintura, vinilo y TCX cuando la marca los declaró.
+· tipografia/ — 16 archivos: CT_Parral (display, 3) y Barlow Condensed (cuerpo, 4) y CT_Damajuana (de la marca, 3) y CT_Zarcillo (de la marca, 3) y CT_Acequia (de la marca, 3).
+· textos.txt — el slogan, manifiesto, misión, visión.
+· tokens.json — todo lo anterior en formato estructurado, para integraciones y asistentes.
+
+LO QUE NO ESTÁ, Y POR QUÉ
+· El PDF de imprenta del logotipo: no está subido; la imprenta lo pide en curvas.
+· El isotipo: sin subir.
+· El Pantone del primario: sin declarar; el CMYK del paquete es aproximado.
+· Las fotos: ninguna subida.
+· Los textos de prensa: about corto, about medio, boilerplate de prensa — sin escribir.
+
+Lo que no figura acá la marca no lo declaró: no se inventa.
+Armado desde la guía de marca de Cuyo Tech Week, en Pencilbox.

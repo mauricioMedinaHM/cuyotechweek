@@ -1,0 +1,4 @@
+rol,nombre,hex,rgb,cmyk,cmyk_origen,pantone,ral,pintura,vinilo,tcx
+Primario,Verde,#00FF96,0 255 150,C100 M0 Y41 K0,aproximado desde el HEX,,,,,
+Fundación,Negro,#000000,0 0 0,C0 M0 Y0 K100,aproximado desde el HEX,,,,,
+Fundación,Blanco,#FFFFFF,255 255 255,C0 M0 Y0 K0,aproximado desde el HEX,,,,,

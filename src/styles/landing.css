@@ -1,0 +1,197 @@
+/* ==========================================================================
+   Cuyo Tech Week 2026 · la landing
+   El sistema definitivo de la marca: negro, blanco y un verde (#00FF96).
+   Los títulos en las letras que dibujó la comunidad (CT_Parral, CT_Zarcillo,
+   CT_Damajuana, CT_Acequia); los datos en Barlow Condensed; lo informativo y el
+   ASCII en Chivo Mono. Los recuadros, la raya y la marca son trazos a mano, y
+   como en las piezas animadas, hierven: tiemblan cuadro a cuadro.
+   Sin sombras, sin blur, sin degradés, sin esquinas redondeadas.
+   ========================================================================== */
+@font-face { font-family: 'CT Parral'; src: url('/fuentes/CT_Parral-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'CT Zarcillo'; src: url('/fuentes/CT_Zarcillo-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'CT Damajuana'; src: url('/fuentes/CT_Damajuana-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'CT Acequia'; src: url('/fuentes/CT_Acequia-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 400; src: url('/fuentes/Barlow_Condensed_Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 500; src: url('/fuentes/Barlow_Condensed_Medium.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 600; src: url('/fuentes/Barlow_Condensed_SemiBold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 700; src: url('/fuentes/Barlow_Condensed_Bold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Chivo Mono'; font-weight: 400; src: url('/fuentes/ChivoMono-Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Chivo Mono'; font-weight: 700; src: url('/fuentes/ChivoMono-Bold.ttf') format('truetype'); font-display: swap; }
+
+:root {
+  --negro: #000000; --blanco: #FFFFFF; --verde: #00FF96;
+  --fondo: var(--negro); --tinta: var(--verde); --acento: var(--blanco); --texto: var(--blanco);
+  --mano: 'CT Parral', 'Barlow Condensed', sans-serif;
+  --dato: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --mono: 'Chivo Mono', 'Menlo', monospace;
+  --margen: clamp(20px, 5vw, 96px);
+  --ancho: 1600px;
+  --t-titulo: clamp(46px, 7vw, 124px);
+  --t-grande: clamp(26px, 2.6vw, 46px);
+  --t-texto: clamp(20px, 1.9vw, 32px);
+  --t-caja: clamp(16px, 1.5vw, 26px);
+  --t-mono: clamp(11px, .85vw, 14px);
+  --montanas: clamp(150px, 24vw, 380px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--negro); color: var(--blanco); font-family: var(--dato); font-weight: 400; line-height: 1.3; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+::selection { background: var(--verde); color: var(--negro); }
+
+/* ---------- los trazos que hierven ---------- */
+@keyframes hierve { 0% { filter: url(#h1); } 50% { filter: url(#h2); } 100% { filter: url(#h3); } }
+.hierve { animation: hierve .42s steps(3, jump-none) infinite; will-change: filter; }
+@media (prefers-reduced-motion: reduce) { .hierve { animation: none; filter: none; } }
+
+/* ---------- las entradas (cuando la sección aparece en pantalla) ---------- */
+@keyframes entra { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes dibuja { from { clip-path: inset(-25% 110% -25% -12%); } to { clip-path: inset(-25% -12% -25% -12%); } }
+@keyframes tipea { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+.entra, .dibuja, .tipea, .aparece { opacity: 0; }
+.activa .entra { animation: entra .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--d, 0ms); opacity: 1; }
+.activa .dibuja { animation: dibuja .55s cubic-bezier(.3,.6,.3,1) both; animation-delay: var(--d, 0ms); opacity: 1; }
+.activa .tipea { animation: tipea 2.4s steps(60, end) both; animation-delay: var(--d, 0ms); opacity: 1; }
+.activa .aparece { animation: aparece .9s ease-out both; animation-delay: var(--d, 0ms); opacity: 1; }
+.activa .raya path { animation: traza .9s cubic-bezier(.4,0,.2,1) both; animation-delay: var(--d, 0ms); }
+@keyframes traza { from { stroke-dashoffset: var(--largo, 1400); } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .entra, .dibuja, .tipea, .aparece { opacity: 1; animation: none !important; } .activa .raya path { animation: none; stroke-dashoffset: 0 !important; } }
+
+/* ---------- la barra ---------- */
+.barra { position: fixed; inset: 0 0 auto 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px var(--margen); background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0) 100%); border-bottom: 0; }
+.barra-marca { display: block; width: clamp(54px, 5vw, 76px); margin: -8px 0; }
+.barra-marca img { width: 100%; }
+.barra-dato { display: none; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--verde); }
+@media (min-width: 720px) { .barra-dato { display: block; } }
+.barra-boton { font-family: 'CT Damajuana', var(--mano); font-weight: 400; font-size: clamp(22px, 2.4vw, 32px); letter-spacing: .01em; text-transform: uppercase; color: var(--verde); text-decoration: none; padding: 4px 0; line-height: 1; }
+.barra-boton:hover { color: var(--blanco); }
+
+/* ---------- las secciones ---------- */
+section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--margen); }
+@media (max-width: 680px) {
+  section, footer { padding-top: 28px; padding-bottom: 28px; }
+}
+.adentro { max-width: var(--ancho); margin: 0 auto; position: relative; }
+.verde { --fondo: var(--verde); --tinta: var(--negro); --acento: var(--negro); --texto: var(--negro); background: var(--verde); color: var(--negro); }
+.verde ::selection { background: var(--negro); color: var(--verde); }
+.rotulo { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--tinta); margin-bottom: clamp(18px, 2vw, 30px); }
+.titulo { font-family: var(--mano); font-weight: 400; text-transform: uppercase; font-size: var(--t-titulo); line-height: .9; letter-spacing: .01em; color: var(--tinta); max-width: 14ch; }
+.zarcillo { font-family: 'CT Zarcillo', var(--mano); }
+.damajuana { font-family: 'CT Damajuana', var(--mano); }
+.acequia { font-family: 'CT Acequia', var(--mano); text-transform: none; letter-spacing: 0; line-height: 1; }
+.titulo b { font-weight: 400; color: var(--acento); }
+.titulo.ancho { max-width: 20ch; }
+.linea { display: block; }
+.raya { display: block; width: min(100%, 760px); height: auto; margin: clamp(18px, 2.4vw, 40px) 0 0; overflow: visible; }
+.raya path { fill: none; stroke: var(--tinta); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.texto { font-size: var(--t-texto); line-height: 1.32; max-width: 62ch; color: var(--texto); }
+.texto + .texto { margin-top: 1em; }
+.texto b { font-weight: 600; }
+.texto.grande { font-size: var(--t-grande); line-height: 1.2; font-weight: 500; max-width: 40ch; }
+.texto.tinta { color: var(--tinta); }
+.columnas { display: grid; gap: clamp(28px, 4vw, 80px); align-items: start; }
+@media (min-width: 900px) { .columnas { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .columnas.ancha { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+.espacio { height: clamp(16px, 4vw, 64px); }
+
+/* ---------- los recuadros a mano ---------- */
+.caja { position: relative; display: inline-flex; align-items: center; justify-content: center; text-align: center; padding: .55em 1.3em; font-family: var(--dato); font-weight: 600; font-size: var(--t-caja); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta); line-height: 1.15; }
+.caja::before { content: ''; position: absolute; inset: -8% -3%; background: url('/recursos/CTW_RECTAANGULO_DOBLE-verde.png') center / 100% 100% no-repeat; pointer-events: none; }
+.verde .caja::before { background-image: url('/recursos/CTW_RECTAANGULO_DOBLE-negro.png'); }
+.caja.hierve { animation: none; filter: none; }
+.caja.hierve::before { animation: hierve .42s steps(3, jump-none) infinite; }
+.cajas { display: flex; flex-wrap: wrap; gap: clamp(14px, 1.6vw, 26px) clamp(16px, 2vw, 30px); }
+.actores { list-style: none; display: grid; grid-template-columns: 1fr; gap: 0.16em 1.4em; margin: 0; padding: 0; max-width: 100%; font-family: 'CT Damajuana', var(--mano); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 7.2vw, 64px); line-height: 0.92; letter-spacing: 0.01em; color: var(--tinta); }
+.actores li { min-width: 0; }
+.actores li:nth-child(even) { color: var(--acento); }
+@media (min-width: 720px) { .actores { grid-template-columns: 1fr 1fr; max-width: min(100%, 34em); font-size: clamp(32px, 3.4vw, 64px); } }
+.cajas.grandes .caja { font-size: clamp(20px, 2.2vw, 38px); padding: .8em 1.4em; flex: 1 1 260px; }
+.cajas.grandes .caja::before { inset: -10% -3%; }
+
+/* ---------- el hero ---------- */
+.hero { min-height: 100svh; height: 100svh; --montanas: clamp(100px, 16vh, 180px); padding-top: clamp(68px, 8vh, 96px); padding-bottom: calc(var(--montanas) + 28px); display: flex; align-items: center; overflow: hidden; }
+@media (max-width: 680px) {
+  .hero { height: 100svh; min-height: 100svh; --montanas: clamp(64px, 9vh, 96px); padding-top: 88px; padding-bottom: calc(var(--montanas) + 36px); align-items: center; }
+  .hero .adentro { gap: 8px; }
+}
+.hero-montanas { position: absolute; left: 0; right: 0; bottom: 0; height: var(--montanas); background: url('/recursos/foto-montanas-verde.jpg') center bottom / cover no-repeat; pointer-events: none; }
+.hero .adentro { width: 100%; display: grid; gap: clamp(16px, 3vw, 48px); align-items: center; }
+.logo-vivo { width: min(56vw, 210px); aspect-ratio: 1; cursor: pointer; justify-self: center; }
+.logo-vivo img { width: 100%; height: 100%; object-fit: contain; }
+.hero .titulo { max-width: 12ch; font-size: clamp(34px, 5.2vw, 72px); }
+.hero .raya { margin-top: clamp(10px, 1.4vh, 22px); }
+.hero .cajas { margin-top: clamp(14px, 1.8vh, 26px); }
+.hero .caja { padding: 0; }
+.hero .caja::before { content: none; }
+@media (min-width: 680px) {
+  .hero .adentro { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .logo-vivo { justify-self: start; width: min(100%, 520px, calc(100svh - var(--montanas) - 150px)); }
+}
+
+/* ---------- las fotos, recortadas sobre el fondo ---------- */
+.foto { width: 100%; height: auto; }
+.foto-flotante { justify-self: end; align-self: end; width: min(100%, 720px); }
+
+/* ---------- el ASCII ---------- */
+.ascii { font-family: var(--mono); font-weight: 700; font-size: clamp(4.4px, .58vw, 9.5px); line-height: 1.06; color: var(--tinta); white-space: pre; overflow: hidden; letter-spacing: 0; }
+.ascii-banda { container-type: inline-size; margin-top: clamp(8px, 2vw, 28px); }
+.ascii-banda .ascii { font-size: calc(100cqw / 74); line-height: 1; transform: scaleY(.42); transform-origin: top left; width: max-content; margin-bottom: calc(73 * 100cqw / 74 * -.58); }
+.ascii-marco { position: relative; padding: clamp(18px, 2vw, 32px); }
+.ascii-marco::before { content: ''; position: absolute; inset: -2% -1.5%; background: url('/recursos/CTW_RECTAANGULO_DOBLE-verde.png') center / 100% 100% no-repeat; pointer-events: none; }
+.ascii-marco.hierve { animation: none; filter: none; }
+.ascii-marco.hierve::before { animation: hierve .42s steps(3, jump-none) infinite; }
+.luma { position: relative; z-index: 1; background: #000; min-height: 320px; }
+.luma iframe { display: block; width: 100%; height: min(70vh, 640px); border: 0; background: #000; }
+.luma-espera { margin: 0; min-height: 320px; display: flex; align-items: flex-end; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--tinta); }
+.ascii-pie { margin-top: 12px; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--tinta); }
+@media (prefers-reduced-motion: reduce) { .ascii-marco.hierve::before, .caja.hierve::before { animation: none; } }
+
+/* ---------- las experiencias ---------- */
+.experiencias { display: flex; flex-direction: column; gap: clamp(16px, 2vw, 26px); }
+.exp { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "num titulo" "num texto"; column-gap: clamp(14px, 2vw, 28px); row-gap: .2em; align-items: start; padding: .9em 1.35em 1em; }
+.exp::before { content: ''; position: absolute; inset: -8% -1.2%; background: url('/recursos/CTW_RECTAANGULO_DOBLE-verde.png') center / 100% 100% no-repeat; pointer-events: none; }
+.exp:nth-child(even)::before { transform: scaleX(-1); }
+.exp h3 { grid-area: titulo; font-family: var(--dato); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; font-size: clamp(22px, 2vw, 34px); line-height: 1; color: var(--tinta); margin: 0; }
+.exp p { font-family: var(--dato); font-size: clamp(16px, 1.25vw, 22px); line-height: 1.28; margin: 0; }
+.exp p:not(.exp-numero) { grid-area: texto; }
+.exp .exp-numero { grid-area: num; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .14em; color: var(--tinta); margin: .2em 0 0; }
+@media (min-width: 860px) {
+  .exp { grid-template-columns: auto minmax(12rem, .8fr) minmax(0, 1.5fr); grid-template-areas: "num titulo texto"; align-items: center; padding: .85em 1.6em; }
+}
+.garabato { position: absolute; pointer-events: none; }
+.garabato-monoculo { right: var(--margen); top: clamp(60px, 7vw, 120px); width: clamp(90px, 9vw, 170px); }
+.garabato-cuernos { left: calc(var(--margen) - 20px); bottom: clamp(20px, 3vw, 50px); width: clamp(160px, 18vw, 340px); }
+
+/* ---------- quiénes ---------- */
+.quienes { display: grid; gap: clamp(36px, 5vw, 80px); }
+@media (min-width: 900px) { .quienes { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } }
+.quienes h2 { font-family: var(--mano); font-weight: 400; text-transform: uppercase; font-size: clamp(38px, 4.2vw, 76px); line-height: .95; color: var(--tinta); }
+.nombres { margin: clamp(16px, 2vw, 28px) 0 0; max-width: 100%; font-size: clamp(28px, 3.6vw, 46px); line-height: 1.15; letter-spacing: .01em; text-transform: uppercase; color: var(--tinta); }
+.nombres span { display: inline-block; max-width: 100%; }
+.nombres.claro { color: var(--acento); }
+.corte { display: inline-block; width: 1.85em; height: 0.78em; margin: 0 0.42em 0.08em; vertical-align: middle; }
+.corte path { fill: none; stroke: currentColor; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 640px) {
+  .nombres span { display: block; width: 100%; margin-top: 0.42em; }
+  .nombres span:first-child { margin-top: 0; }
+  .corte { margin: 0 0.45em 0.06em 0; }
+}
+
+/* ---------- sumate ---------- */
+.sumate .cajas.grandes { margin: clamp(30px, 4vw, 60px) 0; }
+
+/* ---------- el pie ---------- */
+footer { border-top: 1px solid var(--verde); }
+.pie { display: grid; gap: clamp(28px, 4vw, 64px); align-items: end; }
+@media (min-width: 900px) { .pie { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.pie-logo { width: min(100%, 360px); }
+.pie-claim { font-family: var(--mano); text-transform: uppercase; font-size: clamp(28px, 3vw, 54px); line-height: .95; color: var(--verde); }
+.pie-claim b { font-weight: 400; color: var(--blanco); }
+.pie-datos { margin-top: clamp(18px, 2vw, 28px); }
+.pie-chica { margin-top: clamp(40px, 6vw, 90px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 30px; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.72); }
+.pie-chica a { color: var(--verde); text-decoration: none; }
+.pie-chica a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.letras { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: .06em; color: rgba(255,255,255,.72); }
+.letras .l { text-transform: none; letter-spacing: 0; font-size: 1.5em; color: var(--verde); }
+.letras .parral { font-family: 'CT Parral'; } .letras .zarcillo { font-family: 'CT Zarcillo'; } .letras .damajuana { font-family: 'CT Damajuana'; } .letras .acequia { font-family: 'CT Acequia'; }
