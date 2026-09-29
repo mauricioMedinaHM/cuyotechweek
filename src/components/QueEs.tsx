@@ -4,6 +4,7 @@ import { Raya } from "./Raya";
 
 const retratos = Array.from({ length: 14 }, (_, i) => `/recursos/retratos/${String(i + 1).padStart(2, "0")}.webp`);
 const fuentesCuyo = ["parral-gruesa", "parral", "zarcillo", "damajuana", "acequia"];
+const ritmo = 280;
 
 function TodoCuyo({ activo }: { activo: boolean }) {
   const [fuente, setFuente] = useState(0);
@@ -11,7 +12,7 @@ function TodoCuyo({ activo }: { activo: boolean }) {
   useEffect(() => {
     if (!activo) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setFuente((n) => (n + 1) % fuentesCuyo.length), 180);
+    const id = window.setInterval(() => setFuente((n) => (n + 1) % fuentesCuyo.length), ritmo);
     return () => window.clearInterval(id);
   }, [activo]);
 
@@ -53,7 +54,7 @@ function Retratos({ activo }: { activo: boolean }) {
         });
       };
       precarga.src = retratos[prox];
-    }, 1600);
+    }, ritmo);
     return () => {
       cancelado = true;
       window.clearInterval(id);
