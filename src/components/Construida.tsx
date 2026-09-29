@@ -5,8 +5,7 @@ export function Construida() {
   return (
     <section id="construida">
       <div className="adentro">
-        <p className="rotulo entra">Una plataforma abierta</p>
-        <h2 className="titulo ancho zarcillo hierve">
+        <h2 className="titulo ancho hierve">
           <span className="linea entra" style={retraso("100ms")}>
             Una agenda construida
           </span>

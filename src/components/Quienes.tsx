@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { acompanan, organizan } from "../data/contenido";
 import { retraso } from "../lib/estilo";
 
@@ -11,17 +10,10 @@ const trazos = [
   ["M3 7 C 14 17, 26 2, 40 13 C 52 23, 64 4, 78 14 C 88 20, 93 8, 98 12", "M3 20 C 16 27, 30 14, 46 23 C 60 30, 72 16, 86 24 C 93 27, 96 19, 98 21"],
 ];
 
-function mezcla(paso: number, total: number) {
-  const t = total <= 1 ? 1 : paso / (total - 1);
-  const r = Math.round(255 * (1 - t));
-  const b = Math.round(255 + (150 - 255) * t);
-  return `rgb(${r}, 255, ${b})`;
-}
-
-function Corte({ paso, total, cuadro }: { paso: number; total: number; cuadro: number }) {
+function Corte({ paso, cuadro }: { paso: number; cuadro: number }) {
   const [arriba, abajo] = trazos[(paso + cuadro) % trazos.length];
   return (
-    <svg className="corte" viewBox="0 0 100 32" aria-hidden="true" style={{ color: mezcla(paso, total) }}>
+    <svg className="corte" viewBox="0 0 100 32" aria-hidden="true">
       <path d={arriba} />
       <path d={abajo} />
     </svg>
@@ -43,7 +35,7 @@ function Nombres({
     <p className={`nombres ${clase}`}>
       {items.map((texto, i) => (
         <span key={texto} className="entra" style={retraso(`${desde + i * 70}ms`)}>
-          <Corte paso={i} total={items.length} cuadro={cuadro} />
+          <Corte paso={i} cuadro={cuadro} />
           {texto}
         </span>
       ))}
@@ -52,39 +44,19 @@ function Nombres({
 }
 
 export function Quienes() {
-  const [cuadro, setCuadro] = useState(0);
-
-  useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let vivo = true;
-    let id = 0;
-    let anterior = 0;
-    const tick = (ahora: number) => {
-      if (!vivo) return;
-      id = requestAnimationFrame(tick);
-      if (ahora - anterior < 1000 / 8) return;
-      anterior = ahora;
-      setCuadro((n) => (n + 1) % trazos.length);
-    };
-    id = requestAnimationFrame(tick);
-    return () => {
-      vivo = false;
-      cancelAnimationFrame(id);
-    };
-  }, []);
+  const cuadro = 0;
 
   return (
     <section id="quienes">
       <div className="adentro">
-        <div className="quienes">
+        <div className="quienes invierte">
           <div>
-            <p className="rotulo entra">Quiénes la hacen</p>
             <h2 className="hierve entra" style={retraso("100ms")}>
               Organizan
             </h2>
             <Nombres items={organizan} desde={300} clase="damajuana" cuadro={cuadro} />
             <div className="espacio" />
-            <h2 className="zarcillo hierve entra" style={retraso("1100ms")}>
+            <h2 className="hierve entra" style={retraso("1100ms")}>
               Acompañan
             </h2>
             <Nombres items={acompanan} desde={1300} clase="damajuana claro" cuadro={cuadro} />
@@ -92,11 +64,10 @@ export function Quienes() {
           <img
             className="foto foto-flotante aparece"
             style={retraso("500ms")}
-            src="/recursos/foto-taller-manuel-leiva.jpg"
+            src="/recursos/foto-taller-manuel-leiva.webp"
             alt=""
-            width={1600}
-            height={1320}
-            loading="lazy"
+            width={1555}
+            height={1242}
           />
         </div>
       </div>

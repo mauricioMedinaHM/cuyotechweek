@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Agenda } from "./components/Agenda";
 import { Barra } from "./components/Barra";
 import { Construida } from "./components/Construida";
 import { Experiencias } from "./components/Experiencias";
@@ -20,14 +19,15 @@ export function App() {
     <>
       <Filtros />
       <Barra />
-      <Hero />
-      <QueEs />
-      <Agenda />
+      <div className="tapa">
+        <Hero />
+        <QueEs />
+      </div>
       <Vivir />
       <Experiencias />
       <Quienes />
-      <Construida />
       <Sumate />
+      <Construida />
       <Pie />
     </>
   );

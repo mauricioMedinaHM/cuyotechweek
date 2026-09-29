@@ -1,6 +1,51 @@
-import { actores } from "../data/contenido";
+import { useEffect, useState } from "react";
 import { retraso } from "../lib/estilo";
 import { Raya } from "./Raya";
+
+const retratos = Array.from({ length: 14 }, (_, i) => `/recursos/retratos/${String(i + 1).padStart(2, "0")}.webp`);
+const fuentesCuyo = ["parral-gruesa", "parral", "zarcillo", "damajuana", "acequia"];
+
+function TodoCuyo() {
+  const [fuente, setFuente] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setFuente((n) => (n + 1) % fuentesCuyo.length), 180);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <>
+      {fuentesCuyo.map((nombre, i) => (
+        <b
+          key={nombre}
+          className={`fuente-viva ${nombre}${i === fuente ? " activa" : ""}`}
+          aria-hidden={i === fuente ? undefined : true}
+        >
+          todo Cuyo
+        </b>
+      ))}
+    </>
+  );
+}
+
+function Retratos() {
+  const [activa, setActiva] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setActiva((n) => (n + 1) % retratos.length), 180);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <figure className="retratos" aria-hidden="true">
+      {retratos.map((src, i) => (
+        <img key={src} src={src} alt="" className={i === activa ? "activa" : ""} />
+      ))}
+    </figure>
+  );
+}
 
 export function QueEs() {
   return (
@@ -8,13 +53,15 @@ export function QueEs() {
       <div className="adentro">
         <div className="columnas ancha">
           <div>
-            <p className="rotulo entra">Qué es</p>
-            <h2 className="titulo ancho zarcillo hierve">
+            <h2 className="titulo ancho hierve">
               <span className="linea entra" style={retraso("100ms")}>
-                Tecnología, innovación y emprendimiento
+                Tecnología e innovación.
               </span>
               <span className="linea entra" style={retraso("400ms")}>
-                <b>conectando a todo Cuyo</b>
+                Conectando a
+              </span>
+              <span className="linea linea-cuyo entra" style={retraso("550ms")}>
+                <TodoCuyo />
               </span>
             </h2>
             <Raya />
@@ -23,34 +70,9 @@ export function QueEs() {
               Cuyo Tech Week nace para convertir a Mendoza en el punto de encuentro de la tecnología, la innovación y el
               emprendimiento de la región.
             </p>
-            <p className="texto entra" style={retraso("800ms")}>
-              Durante dos semanas, diferentes espacios de la provincia serán escenario de encuentros, workshops,
-              experiencias, charlas, networking y actividades que reunirán a{" "}
-              <b>
-                startups, empresas, emprendedores, universidades, inversores, comunidades tecnológicas, organismos
-                públicos y referentes del ecosistema
-              </b>
-              .
-            </p>
           </div>
-          <img
-            className="foto foto-flotante aparece"
-            style={retraso("500ms")}
-            src="/recursos/foto-cordillera-mendoza.jpg?v=2"
-            alt="Cordillera de los Andes en Mendoza, junto al Aconcagua"
-            width={1800}
-            height={1200}
-            decoding="sync"
-          />
+          <Retratos />
         </div>
-        <div className="espacio" />
-        <ul className="actores">
-          {actores.map((texto, i) => (
-            <li key={texto} className="entra" style={retraso(`${900 + i * 70}ms`)}>
-              {texto}
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

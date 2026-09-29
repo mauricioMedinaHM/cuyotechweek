@@ -1,10 +1,24 @@
+import { useEffect, useState } from "react";
+
 export function Barra() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const hero = document.getElementById("arriba");
+    if (!hero) return;
+    const observador = new IntersectionObserver(
+      ([entrada]) => setVisible(entrada.intersectionRatio < 0.35),
+      { threshold: [0, 0.35, 1] },
+    );
+    observador.observe(hero);
+    return () => observador.disconnect();
+  }, []);
+
   return (
-    <header className="barra">
+    <header className={visible ? "barra visible" : "barra"} inert={!visible}>
       <a className="barra-marca" href="#arriba" aria-label="Cuyo Tech Week">
-        <img id="barraCuadro" src="/recursos/logo-blanco/036.png" alt="Cuyo Tech Week" width={640} height={640} />
+        <img src="/recursos/marca-blanca.webp" alt="Cuyo Tech Week" width={900} height={585} />
       </a>
-      <span className="barra-dato">5 al 16 de octubre de 2026 · Mendoza</span>
       <a className="barra-boton hierve" href="#sumate">
         Sumate
       </a>
