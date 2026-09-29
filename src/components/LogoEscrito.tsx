@@ -62,23 +62,22 @@ function guion() {
   const week = ordenar(abajo.filter((i) => datos[i].x >= 480));
 
   const espera = trazos.map(() => 0);
-  const dur = trazos.map(() => 0.3);
-  const correr = (indices: number[], desde: number) => {
-    let t = desde;
-    for (const i of indices) {
-      const paso = Math.min(0.46, Math.max(0.2, trazos[i].largo / 980));
+  const dur = trazos.map(() => 0.28);
+  const fin = 0.6;
+  const correr = (indices: number[], desde: number, hasta: number) => {
+    indices.forEach((i, n) => {
+      const paso = Math.min(0.34, Math.max(0.24, trazos[i].largo / 1600));
+      const hueco = Math.max(0, hasta - desde - paso);
+      const t = indices.length === 1 ? desde : desde + (hueco * n) / (indices.length - 1);
       espera[i] = t;
-      dur[i] = paso;
-      t += paso * 0.52;
-    }
-    return t;
+      dur[i] = Math.min(paso, Math.max(0.16, hasta - t));
+    });
   };
 
-  let t = 0.15;
-  t = correr(cuyo, t) + 0.2;
-  t = correr(tech, t) + 0.12;
-  t = correr(week, t);
-  return { espera, dur, fin: t };
+  correr(cuyo, 0, fin);
+  correr(tech, 0, fin / 2);
+  correr(week, fin / 2, fin);
+  return { espera, dur, fin };
 }
 
 const tiempos = guion();

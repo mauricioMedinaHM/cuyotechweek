@@ -36,7 +36,7 @@ function Nombres({
       {items.map((texto, i) => (
         <span key={texto} className="entra" style={retraso(`${desde + i * 70}ms`)}>
           <Corte paso={i} cuadro={cuadro} />
-          {texto}
+          {texto === "Cuyo Connect" ? <span className="brillo">{texto}</span> : texto}
         </span>
       ))}
     </p>

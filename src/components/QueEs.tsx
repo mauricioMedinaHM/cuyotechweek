@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { retraso } from "../lib/estilo";
 import { Raya } from "./Raya";
 
 const retratos = Array.from({ length: 14 }, (_, i) => `/recursos/retratos/${String(i + 1).padStart(2, "0")}.webp`);
 const fuentesCuyo = ["parral-gruesa", "parral", "zarcillo", "damajuana", "acequia"];
 
-function TodoCuyo() {
+function TodoCuyo({ activo }: { activo: boolean }) {
   const [fuente, setFuente] = useState(0);
 
   useEffect(() => {
+    if (!activo) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => setFuente((n) => (n + 1) % fuentesCuyo.length), 180);
     return () => window.clearInterval(id);
-  }, []);
+  }, [activo]);
 
   return (
     <>
@@ -29,27 +30,82 @@ function TodoCuyo() {
   );
 }
 
-function Retratos() {
-  const [activa, setActiva] = useState(0);
+function Retratos({ activo }: { activo: boolean }) {
+  const indice = useRef(0);
+  const [foto, setFoto] = useState({ frente: 0, capas: [retratos[0], ""] as [string, string] });
 
   useEffect(() => {
+    if (!activo) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setActiva((n) => (n + 1) % retratos.length), 180);
-    return () => window.clearInterval(id);
-  }, []);
+    let cancelado = false;
+    const id = window.setInterval(() => {
+      const prox = (indice.current + 1) % retratos.length;
+      const precarga = new Image();
+      precarga.decoding = "async";
+      precarga.onload = () => {
+        if (cancelado) return;
+        indice.current = prox;
+        setFoto((actual) => {
+          const atras = actual.frente === 0 ? 1 : 0;
+          const capas: [string, string] = [actual.capas[0], actual.capas[1]];
+          capas[atras] = retratos[prox];
+          return { frente: atras, capas };
+        });
+      };
+      precarga.src = retratos[prox];
+    }, 1600);
+    return () => {
+      cancelado = true;
+      window.clearInterval(id);
+    };
+  }, [activo]);
 
   return (
     <figure className="retratos" aria-hidden="true">
-      {retratos.map((src, i) => (
-        <img key={src} src={src} alt="" className={i === activa ? "activa" : ""} />
-      ))}
+      {foto.capas.map(
+        (src, i) =>
+          src && (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              width={1000}
+              height={1497}
+              decoding="async"
+              className={i === foto.frente ? "activa" : ""}
+            />
+          ),
+      )}
     </figure>
   );
 }
 
 export function QueEs() {
+  const seccion = useRef<HTMLElement>(null);
+  const [activo, setActivo] = useState(false);
+
+  useEffect(() => {
+    const nodo = seccion.current;
+    if (!nodo) return;
+    let enPantalla = false;
+    const publicar = () => setActivo(enPantalla && document.visibilityState === "visible");
+    const observador = new IntersectionObserver(
+      ([entrada]) => {
+        enPantalla = entrada.isIntersecting;
+        publicar();
+      },
+      { rootMargin: "120px 0px" },
+    );
+    observador.observe(nodo);
+    document.addEventListener("visibilitychange", publicar);
+    return () => {
+      observador.disconnect();
+      document.removeEventListener("visibilitychange", publicar);
+    };
+  }, []);
+
   return (
-    <section id="que-es">
+    <section id="que-es" ref={seccion}>
       <div className="adentro">
         <div className="columnas ancha">
           <div>
@@ -61,7 +117,7 @@ export function QueEs() {
                 Conectando a
               </span>
               <span className="linea linea-cuyo entra" style={retraso("550ms")}>
-                <TodoCuyo />
+                <TodoCuyo activo={activo} />
               </span>
             </h2>
             <Raya />
@@ -71,7 +127,7 @@ export function QueEs() {
               emprendimiento de la región.
             </p>
           </div>
-          <Retratos />
+          <Retratos activo={activo} />
         </div>
       </div>
     </section>

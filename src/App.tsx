@@ -19,10 +19,8 @@ export function App() {
     <>
       <Filtros />
       <Barra />
-      <div className="tapa">
-        <Hero />
-        <QueEs />
-      </div>
+      <Hero />
+      <QueEs />
       <Vivir />
       <Experiencias />
       <Quienes />
