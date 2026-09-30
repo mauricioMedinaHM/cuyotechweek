@@ -2,7 +2,17 @@ import { useState } from "react";
 import { retraso } from "../lib/estilo";
 import { Marcador } from "./Marcador";
 
-const vias = ["Participá", "Organizá una actividad", "Acompañá como sponsor"];
+const vias: { nombre: string; href?: string }[] = [
+  { nombre: "Participá", href: "https://calendario-tech.vercel.app/" },
+  {
+    nombre: "Organizá una actividad",
+    href: "https://docs.google.com/forms/d/e/1FAIpQLSdBALewhPeX5QMzTozEE7gF0p2tUt6-kBCwCslS_MMbGMVm7g/viewform",
+  },
+  {
+    nombre: "Acompañá como sponsor",
+    href: "mailto:mendozatech@gmail.com?subject=Acompañá%20como%20sponsor%20—%20Cuyo%20Tech%20Week",
+  },
+];
 
 export function Sumate() {
   const [activa, setActiva] = useState(0);
@@ -29,24 +39,45 @@ export function Sumate() {
             </p>
           </div>
           <div className="sumate-vias" role="group" aria-label="Cómo sumarte">
-            {vias.map((via, i) => (
-              <button
-                key={via}
-                type="button"
-                className={i === activa ? "sumate-via prendida" : "sumate-via"}
-                aria-pressed={i === activa}
-                onMouseEnter={() => setActiva(i)}
-                onFocus={() => setActiva(i)}
-                onClick={() => setActiva(i)}
-              >
-                <span>{via}</span>
-                <span className="sumate-flecha" aria-hidden="true">
-                  <svg viewBox="0 0 64 16" width="64" height="16">
-                    <path d="M0 8 H58 M50 2 L58 8 L50 14" />
-                  </svg>
-                </span>
-              </button>
-            ))}
+            {vias.map((via, i) => {
+              const clase = i === activa ? "sumate-via prendida" : "sumate-via";
+              const cuerpo = (
+                <>
+                  <span>{via.nombre}</span>
+                  <span className="sumate-flecha" aria-hidden="true">
+                    <svg viewBox="0 0 64 16" width="64" height="16">
+                      <path d="M0 8 H58 M50 2 L58 8 L50 14" />
+                    </svg>
+                  </span>
+                </>
+              );
+              if (via.href) {
+                return (
+                  <a
+                    key={via.nombre}
+                    className={clase}
+                    href={via.href}
+                    onMouseEnter={() => setActiva(i)}
+                    onFocus={() => setActiva(i)}
+                  >
+                    {cuerpo}
+                  </a>
+                );
+              }
+              return (
+                <button
+                  key={via.nombre}
+                  type="button"
+                  className={clase}
+                  aria-pressed={i === activa}
+                  onMouseEnter={() => setActiva(i)}
+                  onFocus={() => setActiva(i)}
+                  onClick={() => setActiva(i)}
+                >
+                  {cuerpo}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
