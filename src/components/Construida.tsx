@@ -20,12 +20,6 @@ export function Construida() {
           <b>empresas, startups, instituciones, comunidades, universidades, emprendedores y organizaciones</b> que
           quieran ser protagonistas.
         </p>
-        <a className="construida-hecho entra" href="https://cuyoconnect.com/" style={retraso("800ms")}>
-          <img src="/recursos/logos/cuyo-connect.png" alt="" width={543} height={709} />
-          <span>
-            Este sitio realizado por <b>Cuyo Connect</b>
-          </span>
-        </a>
       </div>
     </section>
   );

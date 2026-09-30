@@ -11,12 +11,12 @@ export const organizan: Marca[] = [
   { nombre: "Endeavor", logo: "/recursos/logos/endeavor.png?v=1" },
   { nombre: "LODO", logo: "/recursos/logos/lodo.png" },
   { nombre: "Limit Lab", logo: "/recursos/logos/limit-lab.png" },
+  { nombre: "CuyoConnect", logo: "/recursos/logos/cuyo-connect.png", href: "https://cuyoconnect.com/" },
 ];
 
 export const acompanan: Marca[] = [
   { nombre: "Underc0de", logo: "/recursos/logos/underc0de.png?v=1" },
   { nombre: "WEDO" },
-  { nombre: "Cuyo Connect", logo: "/recursos/logos/cuyo-connect.png", href: "https://cuyoconnect.com/" },
   { nombre: "Pencilbox" },
   { nombre: "Anden", logo: "/recursos/logos/anden.png" },
   { nombre: "VendimiaTech", logo: "/recursos/logos/vendimia-tech.png?v=2" },
