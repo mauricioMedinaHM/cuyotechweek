@@ -102,9 +102,8 @@ section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--mar
 .espacio { height: clamp(16px, 4vw, 64px); }
 .construida-hecho { display: flex; align-items: center; justify-content: center; gap: 0.4em; width: fit-content; margin: clamp(28px, 4vw, 48px) auto 0; max-width: 28em; color: var(--texto); font-size: clamp(15px, 1.15vw, 18px); line-height: 1; text-decoration: none; }
 .construida-hecho img { width: auto; height: 1.35em; flex: none; }
-.construida-hecho b { font-weight: 600; color: var(--tinta); }
-.construida-hecho:hover b,
-.construida-hecho:focus-visible b { color: var(--verde); }
+.construida-hecho:hover,
+.construida-hecho:focus-visible { color: var(--verde); }
 .construida-hecho:focus-visible { outline: 2px solid var(--verde); outline-offset: 6px; }
 
 /* ---------- los recuadros a mano ---------- */
@@ -160,9 +159,9 @@ section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--mar
 .foto { width: 100%; height: auto; }
 .foto-flotante { justify-self: end; align-self: end; width: min(100%, 720px); }
 .retratos { position: relative; width: min(100%, 420px); aspect-ratio: 2 / 3; margin: 0; justify-self: end; align-self: end; overflow: hidden; clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
-.retratos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; opacity: 0; filter: grayscale(1); transition: opacity 0.16s ease; }
+.retratos img { position: absolute; top: 8%; left: 14%; width: 84%; height: 88%; object-fit: contain; object-position: center center; opacity: 0; filter: grayscale(1); transition: opacity 0.16s ease; }
 .retratos img.activa { opacity: 1; }
-.retratos { -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%), linear-gradient(to right, transparent 0%, #000 24%); mask-image: linear-gradient(to bottom, transparent 0%, #000 18%), linear-gradient(to right, transparent 0%, #000 24%); -webkit-mask-composite: source-in; mask-composite: intersect; }
+.retratos { -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%), linear-gradient(to right, transparent 0%, #000 12%); mask-image: linear-gradient(to bottom, transparent 0%, #000 8%), linear-gradient(to right, transparent 0%, #000 12%); -webkit-mask-composite: source-in; mask-composite: intersect; }
 @media (min-width: 900px) {
   #que-es .columnas.ancha { align-items: stretch; }
   .retratos {
@@ -172,6 +171,7 @@ section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--mar
     margin: calc(clamp(72px, 9vw, 150px) * -1) calc(var(--margen) * -1) calc(clamp(72px, 9vw, 150px) * -1) 0;
     align-self: stretch;
   }
+  .retratos img { top: 7%; left: 16%; width: 83%; height: 90%; }
 }
 @media (max-width: 899px) {
   .retratos {
@@ -181,7 +181,10 @@ section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--mar
     margin: 0 calc(var(--margen) * -1) calc(28px * -1);
     justify-self: stretch;
     clip-path: polygon(0 11%, 100% 0, 100% 100%, 0 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%), linear-gradient(to right, transparent 0%, #000 6%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 8%), linear-gradient(to right, transparent 0%, #000 6%);
   }
+  .retratos img { top: 10%; left: 5%; width: 91%; height: 86%; }
 }
 
 /* ---------- el calendario ---------- */

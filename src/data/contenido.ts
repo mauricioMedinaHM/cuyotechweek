@@ -17,7 +17,7 @@ export const organizan: Marca[] = [
 export const acompanan: Marca[] = [
   { nombre: "Underc0de", logo: "/recursos/logos/underc0de.png?v=1" },
   { nombre: "WEDO" },
-  { nombre: "Pencilbox" },
+  { nombre: "Pencilbox", logo: "/recursos/logos/pencilbox.png" },
   { nombre: "Anden", logo: "/recursos/logos/anden.png" },
   { nombre: "VendimiaTech", logo: "/recursos/logos/vendimia-tech.png?v=2" },
   { nombre: "Andes Tech", logo: "/recursos/logos/andes-tech.png" },

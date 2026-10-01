@@ -24,10 +24,8 @@ export function Pie() {
           <span className="l acequia">CT_Acequia</span>
         </p>
         <a className="construida-hecho entra" href="https://cuyoconnect.com/" style={retraso("400ms")}>
-          <img src="/recursos/logos/cuyo-connect.png" alt="" width={543} height={709} />
-          <span>
-            Desarrollado por <b>CuyoConnect</b>
-          </span>
+          <span>Desarrollado por</span>
+          <img src="/recursos/logos/cuyo-connect-lockup.png" alt="CuyoConnect" width={920} height={232} />
         </a>
       </div>
     </footer>
