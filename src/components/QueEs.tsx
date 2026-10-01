@@ -2,17 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { retraso } from "../lib/estilo";
 import { Raya } from "./Raya";
 
-const retratos = [
-  "/fotosPrimerComponente/01.webp",
-  "/fotosPrimerComponente/02.webp",
-  "/fotosPrimerComponente/03.webp",
-  "/fotosPrimerComponente/04.webp",
-  "/fotosPrimerComponente/05.webp",
-  "/fotosPrimerComponente/06.webp",
-  "/fotosPrimerComponente/07.webp",
-  "/fotosPrimerComponente/08.webp",
-  "/fotosPrimerComponente/09.webp",
-];
+const retratos = Array.from({ length: 17 }, (_, i) => `/fotosPrimerComponente/${String(i + 1).padStart(2, "0")}.webp`);
 const fuentesCuyo = ["parral-gruesa", "parral", "zarcillo", "damajuana", "acequia"];
 const ritmo = 280;
 
