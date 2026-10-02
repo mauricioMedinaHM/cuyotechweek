@@ -1,5 +1,6 @@
 import { acompanan, organizan, type Marca } from "../data/contenido";
 import { retraso } from "../lib/estilo";
+import { Raya } from "./Raya";
 
 const compactas = new Set(["Polo TIC Mendoza", "CuyoConnect", "Andes Tech", "Underc0de", "Campus Olegario"]);
 const apiladas = new Set(["CuyoConnect"]);
@@ -53,6 +54,40 @@ export function Quienes() {
       <div className="adentro quienes-muro">
         <Muro titulo="Organizan" items={organizan} desde={100} />
         <Muro titulo="Acompañan" items={acompanan} desde={400} />
+      </div>
+      <div className="finde-corte">
+        <Raya delay="560ms" />
+      </div>
+      <div className="finde">
+        <h2 className="entra" style={retraso("700ms")}>
+          Cuyo Tech Weekend
+        </h2>
+        <p className="entra" style={retraso("820ms")}>
+          Picnic en tres bodegas de Luján de Cuyo: quesos, empanadas y tres copas de vino.
+        </p>
+        <ul className="finde-horas entra" style={retraso("920ms")}>
+          <li>
+            <time>10:30</time> Tierras Altas
+          </li>
+          <li>
+            <time>11:15</time> Terrazas
+          </li>
+          <li>
+            <time>12:00</time> Penedo Borges
+          </li>
+        </ul>
+        <a
+          className="barra-boton entra"
+          href="https://winepass.com.ar/experiences/332-cuyo-tech-weekend"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={retraso("1040ms")}
+        >
+          Reservá en Winepass
+        </a>
+      </div>
+      <div className="finde-corte">
+        <Raya delay="640ms" />
       </div>
     </section>
   );

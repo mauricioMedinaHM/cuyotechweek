@@ -120,7 +120,15 @@ section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--mar
 .hero-montanas { position: absolute; inset: 0; z-index: 0; background: url('/recursos/foto-montanas-verde.webp') center bottom / cover no-repeat; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, rgba(0, 0, 0, .05) 42%, rgba(0, 0, 0, .12) 52%, rgba(0, 0, 0, .22) 62%, rgba(0, 0, 0, .36) 72%, rgba(0, 0, 0, .5) 80%, rgba(0, 0, 0, .58) 86%, rgba(0, 0, 0, .34) 93%, rgba(0, 0, 0, .1) 97%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, rgba(0, 0, 0, .05) 42%, rgba(0, 0, 0, .12) 52%, rgba(0, 0, 0, .22) 62%, rgba(0, 0, 0, .36) 72%, rgba(0, 0, 0, .5) 80%, rgba(0, 0, 0, .58) 86%, rgba(0, 0, 0, .34) 93%, rgba(0, 0, 0, .1) 97%, transparent 100%); }
 .hero .adentro { width: 100%; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(10px, 2vh, 22px); }
 .hero-copia { min-width: 0; display: flex; flex-direction: column; align-items: center; }
-.logo-vivo { width: clamp(220px, 42vw, 420px); height: auto; aspect-ratio: 900 / 585; }
+.logo-pulso { display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 2vh, 22px); user-select: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.logo-escena { position: relative; width: clamp(220px, 42vw, 420px); }
+.logo-vivo { width: 100%; height: auto; aspect-ratio: 900 / 585; transition: opacity .85s cubic-bezier(.2, .7, .2, 1); }
+@property --qr-revelado { syntax: "<percentage>"; inherits: false; initial-value: 130%; }
+.logo-qr { position: absolute; z-index: 1; left: 50%; top: 50%; width: min(58%, 240px); height: auto; padding: 8px; box-sizing: content-box; background: transparent; opacity: 0; transform: translate(-50%, -50%) scale(.98); pointer-events: none; --qr-revelado: 130%; -webkit-mask-image: linear-gradient(105deg, #000 0, #000 var(--qr-revelado), transparent calc(var(--qr-revelado) + 14%)); mask-image: linear-gradient(105deg, #000 0, #000 var(--qr-revelado), transparent calc(var(--qr-revelado) + 14%)); transition: opacity .85s cubic-bezier(.2, .7, .2, 1), transform .85s cubic-bezier(.2, .7, .2, 1); }
+.logo-pulso.con-qr .logo-qr { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: qr-dibuja 1.15s cubic-bezier(.22, .7, .25, 1) both; }
+@keyframes qr-dibuja { from { --qr-revelado: 0%; } to { --qr-revelado: 130%; } }
+.logo-pulso.con-qr .logo-vivo { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .logo-vivo, .logo-qr { transition: none; } .logo-pulso.con-qr .logo-qr { animation: none; } }
 .logo-vivo img, .logo-escrito { width: 100%; height: 100%; object-fit: contain; display: block; }
 .logo-escrito { visibility: hidden; }
 .logo-escrito.en-marcha { visibility: visible; }
@@ -205,7 +213,14 @@ section, footer { position: relative; padding: clamp(72px, 9vw, 150px) var(--mar
 }
 
 /* ---------- quiénes ---------- */
-#quienes { background: #000; color: #fff; }
+#quienes { background: #000; color: #fff; padding-bottom: 0; }
+.finde-corte { display: flex; justify-content: center; padding: clamp(18px, 2.8vw, 36px) var(--margen); background: #000; }
+.finde-corte .raya { width: min(100%, 760px); margin: 0; }
+.finde { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; box-sizing: border-box; width: min(100%, 760px); margin: 0 auto; padding: clamp(28px, 4vw, 44px) var(--margen); text-align: center; background: #000; color: var(--tinta); }
+.finde h2 { margin: 0; font-family: 'CT Parral Gruesa', 'CT Parral', var(--mano); font-weight: 400; font-size: clamp(32px, 3.6vw, 52px); line-height: .96; letter-spacing: .01em; text-transform: uppercase; color: var(--verde); }
+.finde p { margin: 0; max-width: 40em; font-size: clamp(16px, 1.2vw, 20px); line-height: 1.35; color: var(--tinta); }
+.finde-horas { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 22px; max-width: 34em; margin: 2px 0 0; padding: 0; list-style: none; font-family: var(--dato); font-size: 13px; font-weight: 500; letter-spacing: .01em; line-height: 1.2; text-transform: none; color: var(--tinta); }
+.finde-horas time { font-weight: 700; margin-right: .35em; color: var(--verde); }
 .quienes-muro { display: flex; flex-direction: column; align-items: center; gap: clamp(48px, 7vw, 88px); text-align: center; }
 .muro { width: 100%; }
 .muro h2 { margin: 0 0 clamp(22px, 3vw, 40px); font-family: var(--dato); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: clamp(28px, 3.2vw, 42px); line-height: 1; color: #fff; }
